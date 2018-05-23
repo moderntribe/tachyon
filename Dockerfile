@@ -1,6 +1,19 @@
-FROM ubuntu:latest
-RUN apt-get update && apt-get install -y curl build-essential python2.7
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash -
-RUN apt-get update && apt-get -y install nodejs
-RUN ln -s /usr/bin/python2.7 /usr/bin/python
-CMD cd /build ; npm install --production
+FROM node:slim
+
+# Install libvips
+RUN [ "apt-get", "update", "--fix-missing" ]
+RUN [ "apt-get", "install", "-y", "g++", "make", "python", "--no-install-recommends" ]
+
+# Get app
+COPY node-tachyon /srv/tachyon/
+WORKDIR /srv/tachyon
+RUN [ "npm", "install" ]
+
+# Enable env vars
+ARG AWS_REGION
+ARG AWS_S3_BUCKET
+ARG AWS_S3_ENDPOINT
+
+# Start the reactor
+EXPOSE 8080
+CMD [ "node", "server.js" ]
