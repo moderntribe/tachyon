@@ -89,7 +89,25 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 					});
 
 					// If count is not 4 the server fatals.
-					numericCrops = function( value ) { return sNaN( value ) };
+					numericCrops = function( value ) { return isNaN( value ) };
+					if ( 4 !== cropValues.filter( numericCrops ).length ) {
+						image.extract({
+							left: cropValues[0],
+							top: cropValues[1],
+							width: cropValues[2],
+							height: cropValues[3],
+						});
+					}
+				}
+
+				if (args.croppx) {
+					var cropValues =
+						    typeof args.croppx === 'string'
+							    ? args.croppx.split(',')
+							    : args.croppx;
+
+					// If count is not 4 the server fatals.
+					numericCrops = function( value ) { return isNaN( value ) };
 					if ( 4 !== cropValues.filter( numericCrops ).length ) {
 						image.extract({
 							left: cropValues[0],
