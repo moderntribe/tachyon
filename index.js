@@ -109,7 +109,7 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 
 					// convert percantages to px values
 					cropValues = cropValues.map(function(value, index) {
-							return Number( value.toFixed(0) );
+							return Number( value ).toFixed(0);
 					});
 
 					// If count is not 4 the server fatals.
