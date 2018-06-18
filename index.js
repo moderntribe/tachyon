@@ -109,13 +109,14 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 
 					// convert percantages to px values
 					cropValues = cropValues.map(function(value, index) {
-							return Number( value ).toFixed(0);
+							return parseInt( Number( value ).toFixed(0) );
 					});
+
+					console.log( cropValues );
 
 					// If count is not 4 the server fatals.
 					numericCrops = function( value ) { return isNaN( value ) };
 					if ( 4 !== cropValues.filter( numericCrops ).length ) {
-						console.log( cropValues );
 						image.extract({
 							left: cropValues[0],
 							top: cropValues[1],
