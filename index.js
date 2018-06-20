@@ -48,7 +48,6 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 			if ( args.t ) {
 				transforms = args.t.split('-');
 				transforms.forEach( function( argument ) {
-					console.log( args );
 					pieces = argument.split('_');
 					args[pieces[0]] = pieces[1];
 				} )
