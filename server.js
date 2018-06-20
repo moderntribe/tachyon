@@ -1,11 +1,12 @@
-var http   = require("http"),
-	url    = require("url"),
-	path   = require("path"),
-	fs     = require("fs"),
-	tachyon= require( './index' ),
-	args = process.argv.slice(2),
-	port   = Number( args[0] ) ? args[0] : 8080,
-	debug  = args.indexOf( '--debug' ) > -1
+var http = require("http"),
+    url = require("url"),
+    path = require("path"),
+    fs = require("fs"),
+    tachyon = require('./index'),
+    param_util = require('./param_util'),
+    args = process.argv.slice(2),
+    port = Number(args[0]) ? args[0] : 8080,
+    debug = args.indexOf('--debug') > -1
 
 var config = {}
 if ( process.env.AWS_REGION && process.env.AWS_S3_BUCKET ) {
@@ -19,7 +20,7 @@ if ( process.env.AWS_REGION && process.env.AWS_S3_BUCKET ) {
 }
 
 http.createServer( function( request, response ) {
-	var params = url.parse( request.url, true )
+	var params = url.parse(param_util.decodeQuery(request.url), true)
 
 	if ( debug ) {
 		console.log( Date(), request.url )
