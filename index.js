@@ -39,9 +39,20 @@ module.exports.s3 = function(config, key, args, callback) {
 };
 
 module.exports.resizeBuffer = function(buffer, args, callback) {
+
+
 	return new Promise(function(resolve, reject) {
 		try {
 			var image = sharp(buffer).withMetadata();
+
+			if ( args.t ) {
+				transforms = args.t.split('-');
+				transforms.forEach( function( argument ) {
+					console.log( args );
+					pieces = argument.split('_');
+					args[pieces[0]] = pieces[1];
+				} )
+			}
 
 			return image.metadata(function(err, metadata) {
 				if (err) {
