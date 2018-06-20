@@ -100,8 +100,7 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 
 					// If count is not 4 the server fatals.
 					numericCrops = function( value ) { return isNaN( value ) };
-					if ( 4 !== cropValues.filter( numericCrops ).length ) {
-						console.log( cropValues );
+					if ( 4 == cropValues.filter( numericCrops ).length ) {
 						image.extract({
 							left: cropValues[0],
 							top: cropValues[1],
@@ -122,11 +121,9 @@ module.exports.resizeBuffer = function(buffer, args, callback) {
 							return parseInt( Number( value ).toFixed(0) );
 					});
 
-					console.log( cropValues );
-
 					// If count is not 4 the server fatals.
 					numericCrops = function( value ) { return isNaN( value ) };
-					if ( 4 !== cropValues.filter( numericCrops ).length ) {
+					if ( 4 == cropValues.filter( numericCrops ).length ) {
 						image.extract({
 							left: cropValues[0],
 							top: cropValues[1],
